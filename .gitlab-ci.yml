@@ -1,0 +1,8 @@
+stages:
+  - verify
+  - release
+
+include:
+  - project: sre/scripts
+    ref: master
+    file: gitlab-ci/.terraform-modules-cicd.yml

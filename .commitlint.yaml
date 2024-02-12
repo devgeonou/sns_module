@@ -1,0 +1,19 @@
+version: v0.10.1
+formatter: default
+rules:
+  - type-enum
+  - scope-min-length
+severity:
+  default: error
+settings:
+  type-enum:
+    argument:
+      - build
+      - ci
+      - docs
+      - feat
+      - fix
+      - refactor
+      - test
+  scope-min-length:
+    argument: 1
