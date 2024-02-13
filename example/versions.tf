@@ -8,7 +8,7 @@ terraform {
     }
     aws = {
       source  = "hashicorp/aws"
-      version = "4.50" // Specify the version constraint for the aws provider
+      version = ">= 4.50"
     }
   }
 }
