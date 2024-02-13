@@ -215,8 +215,7 @@ resource "aws_kms_key" "this" {
         Effect : "Allow",
         Principal : {
           AWS : [
-            "${data.aws_caller_identity.current.arn}",
-            // Include any other ARNs that need to manage the key
+            data.aws_caller_identity.current.arn,
           ]
         },
         Action : [
