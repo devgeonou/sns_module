@@ -2,21 +2,38 @@
 # General SNS Topic Configuration
 ################################################################################
 
+variable "topic_name" {
+  description = "The name of the SNS topic."
+  type        = string
+  default     = "default-name"
+
+  validation {
+    condition     = var.topic_name != null && var.topic_name != ""
+    error_message = "The SNS topic name must not be null or empty."
+  }
+}
+
 variable "fifo_topic" {
   description = "Determines if the SNS topic is a FIFO topic."
   type        = bool
   default     = false
+
+  validation {
+    condition     = var.fifo_topic == true || var.fifo_topic == false
+    error_message = "The fifo_topic must be either true or false."
+  }
 }
 
-variable "topic_name" {
-  description = "The name of the SNS topic."
-  type        = string
-}
 
 variable "content_based_deduplication" {
   description = "Enables content-based deduplication for FIFO topics."
   type        = bool
   default     = false
+
+  validation {
+    condition     = var.content_based_deduplication == true || var.content_based_deduplication == false
+    error_message = "The content_based_deduplication must be either true or false."
+  }
 }
 
 variable "delivery_policy" {
@@ -41,6 +58,11 @@ variable "tracing_config" {
   description = "The tracing configuration for the SNS topic."
   type        = string
   default     = null
+
+  validation {
+    condition     = var.tracing_config == "PassThrough" || var.tracing_config == "Active" || var.tracing_config == null
+    error_message = "The tracing_config must be either 'PassThrough', 'Active', or null."
+  }
 }
 
 variable "tags" {
@@ -57,6 +79,11 @@ variable "enable_archive_policy" {
   description = "Determines if the archive policy should be enabled for the SNS topic."
   type        = bool
   default     = false
+
+  validation {
+    condition     = var.enable_archive_policy == true || var.enable_archive_policy == false
+    error_message = "The enable_archive_policy must be either true or false."
+  }
 }
 
 variable "archive_policy" {
@@ -74,6 +101,11 @@ variable "enable_encryption" {
   description = "Determines if enable_encryption should be enabled for the SNS topic."
   type        = bool
   default     = false
+
+  validation {
+    condition     = var.enable_encryption == true || var.enable_encryption == false
+    error_message = "The enable_encryption must be either true or false."
+  }
 }
 
 variable "kms_master_key_id" {
@@ -102,6 +134,11 @@ variable "enable_default_topic_policy" {
   description = "Determines if the default topic policy should be enabled for the SNS topic."
   type        = bool
   default     = false
+
+  validation {
+    condition     = var.enable_default_topic_policy == true || var.enable_default_topic_policy == false
+    error_message = "The enable_default_topic_policy must be either true or false."
+  }
 }
 
 variable "topic_policy_statements" {
@@ -128,12 +165,19 @@ variable "enable_data_protection_policy" {
   description = "Determines if the data protection policy should be enabled for the SNS topic."
   type        = bool
   default     = false
+
+  validation {
+    condition     = var.enable_data_protection_policy == true || var.enable_data_protection_policy == false
+    error_message = "The enable_data_protection_policy must be either true or false."
+  }
+  
 }
 
 variable "data_protection_policy" {
   description = "The data protection policy for the SNS topic."
   type        = string
   default     = null
+  
 }
 
 ################################################################################
@@ -145,6 +189,11 @@ variable "enable_feedback" {
   description = "Determines if feedback should be enabled for the SNS topic."
   type        = bool
   default     = false
+
+  validation {
+    condition     = var.enable_feedback == true || var.enable_feedback == false
+    error_message = "The enable_feedback must be either true or false."
+  }
 }
 
 variable "application_feedback" {
