@@ -432,14 +432,18 @@ MIT License - Copyright (c) 2021 The terraform-docs Authors.
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
-No requirements.
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13.1 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.50 |
+| <a name="requirement_random"></a> [random](#requirement\_random) | >= 3.0.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
-| <a name="provider_random"></a> [random](#provider\_random) | n/a |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.50 |
+| <a name="provider_random"></a> [random](#provider\_random) | >= 3.0.0 |
 
 ## Modules
 
@@ -483,7 +487,7 @@ No modules.
 | <a name="input_sqs_feedback"></a> [sqs\_feedback](#input\_sqs\_feedback) | Configuration for SQS feedback roles. | <pre>object({<br>    failure_role_arn    = string<br>    success_role_arn    = string<br>    success_sample_rate = number<br>  })</pre> | `null` | no |
 | <a name="input_subscriptions"></a> [subscriptions](#input\_subscriptions) | A map of subscription definitions for the SNS topic. | `map(any)` | `{}` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Tags for SNS topic. | `map(string)` | `null` | no |
-| <a name="input_topic_name"></a> [topic\_name](#input\_topic\_name) | The name of the SNS topic. | `string` | n/a | yes |
+| <a name="input_topic_name"></a> [topic\_name](#input\_topic\_name) | The name of the SNS topic. | `string` | `"default-name"` | no |
 | <a name="input_topic_policy_statements"></a> [topic\_policy\_statements](#input\_topic\_policy\_statements) | A list of additional topic policy statements for the SNS topic. | `any` | `[]` | no |
 | <a name="input_tracing_config"></a> [tracing\_config](#input\_tracing\_config) | The tracing configuration for the SNS topic. | `string` | `null` | no |
 

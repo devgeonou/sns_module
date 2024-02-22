@@ -170,14 +170,14 @@ variable "enable_data_protection_policy" {
     condition     = var.enable_data_protection_policy == true || var.enable_data_protection_policy == false
     error_message = "The enable_data_protection_policy must be either true or false."
   }
-  
+
 }
 
 variable "data_protection_policy" {
   description = "The data protection policy for the SNS topic."
   type        = string
   default     = null
-  
+
 }
 
 ################################################################################

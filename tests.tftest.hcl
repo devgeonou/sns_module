@@ -1,10 +1,10 @@
 variables {
-  region      = "eu-west-1"
-  topic_name  = "sns-example-standard"
-  fifo_topic  = false
-  tracing_config = null
+  region                      = "eu-west-1"
+  topic_name                  = "sns-example-standard"
+  fifo_topic                  = false
+  tracing_config              = null
   content_based_deduplication = false
-  topic_policy_statements = {}
+  topic_policy_statements     = {}
   kms_master_key_id           = ""
 
   enable_feedback               = false
@@ -19,9 +19,9 @@ variables {
 }
 
 provider "aws" {
-  region                  = var.region
+  region                   = var.region
   shared_credentials_files = ["D:/Users/joel.reyes/.aws/credentials"]
-  profile                 = "126391801411_CloudDevOps"
+  profile                  = "126391801411_CloudDevOps"
 }
 
 run "verify_sns_topic_name_null" {
@@ -50,12 +50,12 @@ run "verify_sns_topic_name_empty" {
 
 run "verify_boleans_true_false" {
   variables {
-    fifo_topic = null
-    enable_archive_policy = null
-    enable_encryption = null
-    enable_default_topic_policy = null
+    fifo_topic                    = null
+    enable_archive_policy         = null
+    enable_encryption             = null
+    enable_default_topic_policy   = null
     enable_data_protection_policy = null
-    enable_feedback = null
+    enable_feedback               = null
   }
 
   command = plan
@@ -108,8 +108,8 @@ run "verify_tags_exist" {
 run "standard_configuration" {
 
   variables {
-    fifo_topic                  = false
-    content_based_deduplication = false
+    fifo_topic                    = false
+    content_based_deduplication   = false
     enable_data_protection_policy = false
   }
 
@@ -135,10 +135,10 @@ run "standard_configuration" {
 run "fifo_configuration" {
 
   variables {
-    fifo_topic                  = true
-    content_based_deduplication = true
+    fifo_topic                    = true
+    content_based_deduplication   = true
     enable_data_protection_policy = false
-    tracing_config = "PassThrough"
+    tracing_config                = "PassThrough"
   }
 
   command = plan
@@ -168,10 +168,10 @@ run "fifo_configuration" {
 run "encryption_configuration" {
 
   variables {
-    fifo_topic                  = true
-    content_based_deduplication = true
+    fifo_topic                    = true
+    content_based_deduplication   = true
     enable_data_protection_policy = false
-    tracing_config = "PassThrough"
+    tracing_config                = "PassThrough"
   }
 
   command = plan
@@ -179,40 +179,40 @@ run "encryption_configuration" {
 
 run "verify_data_protection" {
   variables {
-    fifo_topic                  = false
+    fifo_topic                    = false
     enable_data_protection_policy = true
     data_protection_policy = jsonencode(
 
-        {
-          Description = "Deny Inbound Address"
-          Name        = "DenyInboundEmailAdressPolicy"
-          Statement = [
-            {
-              "DataDirection" = "Inbound"
-              "DataIdentifier" = [
-                "arn:aws:dataprotection::aws:data-identifier/EmailAddress",
-              ]
-              "Operation" = {
-                "Deny" = {}
-              }
-              "Principal" = [
-                "*",
-              ]
-              "Sid" = "DenyInboundEmailAddress"
-            },
-          ]
-          Version = "2021-06-01"
-        }
-      )
+      {
+        Description = "Deny Inbound Address"
+        Name        = "DenyInboundEmailAdressPolicy"
+        Statement = [
+          {
+            "DataDirection" = "Inbound"
+            "DataIdentifier" = [
+              "arn:aws:dataprotection::aws:data-identifier/EmailAddress",
+            ]
+            "Operation" = {
+              "Deny" = {}
+            }
+            "Principal" = [
+              "*",
+            ]
+            "Sid" = "DenyInboundEmailAddress"
+          },
+        ]
+        Version = "2021-06-01"
+      }
+    )
     enable_default_topic_policy = true
-    topic_policy_statements = {}
+    topic_policy_statements     = {}
   }
 
   assert {
     condition     = var.fifo_topic == false
     error_message = "FIFO topic configuration does not match expected value."
   }
-  
+
   assert {
     condition     = var.enable_data_protection_policy
     error_message = "Data Protection Policy should be enabled for the SNS topic."
@@ -227,4 +227,4 @@ run "verify_data_protection" {
     condition     = (var.enable_data_protection_policy && var.data_protection_policy != null && !var.fifo_topic) || (!var.enable_data_protection_policy && var.fifo_topic)
     error_message = "Data protection policy should be applied only when enabled, not null, and FIFO topic is false."
   }
- }
+}
